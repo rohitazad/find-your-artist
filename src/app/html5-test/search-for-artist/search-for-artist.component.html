@@ -1,0 +1,65 @@
+
+
+
+<div class="wraper">
+<!-- ============================================================================== -->
+  <div class="findArt-sec" *ngIf="findArtist">
+    <h1 class="head-art">
+      <span>Find your artist below</span>
+    </h1>
+    <button class="search-btn" (click)="searchBtn()">Search Artist</button>
+  </div>
+<!-- ============================================================================== -->
+  <div class="finArtForm-sec" *ngIf="findArtistForm">
+    <div class="form-sec">
+      <span class="close-btn" (click)="closeSearch()" title="Close">X</span>
+      <h2 class="head-model">Enter Search Criteria</h2>
+      <form [formGroup]="searchCriteria" novalidate (ngSubmit)="submitCriteria()">
+        <div class="form-group">
+          <label for="artistName">Artist name</label>
+          <input [formControlName]="'artistName'"  type="text" id="artistName" />
+          <p class="error" *ngIf="searchCriteria.get('artistName').errors?.required  && searchCriteria.get('artistName').touched">Artist name is required ex. Jack</p>
+        </div>
+        <div class="form-group">
+          <label for="noOfTracks">No. of tracks</label>
+          <input [formControlName]="'noOfTracks'" type="number" id="noOfTracks" />
+          <p class="error" *ngIf="searchCriteria.get('noOfTracks').errors?.required  && searchCriteria.get('noOfTracks').touched">No. of tracks is required ex. 4</p>
+        </div>
+        <button class="search-btn" [disabled]="!searchCriteria.valid">Search</button>
+      </form>
+    </div>
+  </div>
+<!-- ============================================================================== -->
+  <div class="artist-result" *ngIf="artistResult">
+    <h1 class="head-one">Search result of "{{artistName | uppercase}}". <span class="clear-btn" (click)="clearTrack()" title="Clear the result">( Clear ) </span></h1>
+    <ul *ngIf="userData" class="artist-list">
+      <li *ngFor="let user of userData.results">
+        <div class="left-sec">
+          <img [src]="user.artworkUrl100" [alt]="user.artistName" [title]="user.artistName" />
+        </div>
+        <div class="right-sec">
+          <h4>Artist name: <span> {{user.artistName}}</span></h4>
+          <h4>Track name: <span> {{user.trackName}}</span></h4>
+          <p *ngIf="user.longDescription">{{ user.longDescription | limitToPipe : 70}}</p>
+        </div>
+      </li>
+      
+    </ul>
+  </div>
+<!-- ============================================================================== -->
+</div>
+
+
+
+<div class="newLoading" *ngIf="loadingBar">
+  <div class="loading">
+    <div class="loader">
+      <div class="loader__bar"></div>
+      <div class="loader__bar"></div>
+      <div class="loader__bar"></div>
+      <div class="loader__bar"></div>
+      <div class="loader__bar"></div>
+      <div class="loader__ball"></div>
+    </div><p>Please wait...</p>
+  </div>
+</div>
