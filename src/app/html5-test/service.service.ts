@@ -18,6 +18,6 @@ export class ServiceService {
   
 
   getData(name:string, count:number){
-    return this.http.get('http://itunes.apple.com/search?term='+name+'&limit='+count, { observe: 'response'})
+    return this.http.get('https://itunes.apple.com/search?term='+name+'&limit='+count, { observe: 'response'})
   }
 }
