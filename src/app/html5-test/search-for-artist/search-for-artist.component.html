@@ -22,7 +22,7 @@
         </div>
         <div class="form-group">
           <label for="noOfTracks">No. of tracks</label>
-          <input [formControlName]="'noOfTracks'" type="number" id="noOfTracks" />
+          <input [formControlName]="'noOfTracks'" min='0' type="number" id="noOfTracks" />
           <p class="error" *ngIf="searchCriteria.get('noOfTracks').errors?.required  && searchCriteria.get('noOfTracks').touched">No. of tracks is required ex. 4</p>
         </div>
         <button class="search-btn" [disabled]="!searchCriteria.valid">Search</button>
